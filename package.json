@@ -1,0 +1,22 @@
+{
+  "name": "morphthis",
+  "version": "1.0.0",
+  "description": "Android APK Resigner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SierraII/morphthis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SierraII/morphthis/issues"
+  },
+  "homepage": "https://github.com/SierraII/morphthis#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
