@@ -23,6 +23,14 @@ module.exports = function(grunt) {
       },
     },
     
+    unzip: {
+      "apk/build/apk_unzipped": "apk/build/apk_zipped.zip"
+    },
+    
+    zip: {
+      "location/to/zip/files.zip": ["file/to/zip.js", "another/file.css"]
+    }
+    
     
     
   });
@@ -62,6 +70,8 @@ module.exports = function(grunt) {
   
   grunt.loadNpmTasks("grunt-rename");
   grunt.loadNpmTasks("grunt-exec");
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks('grunt-zip');
+  npm install grunt-contrib-clean --save-dev
 
 };
