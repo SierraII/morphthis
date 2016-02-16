@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         apk_origunal_info: "keytool -list -printcert -jarfile <%= secret.apk_path %>",
         apk_new_signed_info: "keytool -list -printcert -jarfile apk/build/app-unsigned.apk",
         zip_align: "<%= secret.zip_align_path %> -v 4 apk/build/app-unsigned.apk apk/build/app-signed.apk",
+        completes: "say -voice ",
         apk_sign: "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass <%= secret.keystore_password %> -keystore <%= secret.keystore_path %> apk/build/app-unsigned.apk 1"
     },
 
@@ -55,9 +56,18 @@ module.exports = function(grunt) {
 
   });
 
+
+
+
+  
+  
+  
+  
+  
   // Default task(s).
   grunt.registerTask("default", function(){
     
+    grunt.task.run("ascii");
     grunt.task.run("apk_info");
     grunt.task.run("apk_copy");
     grunt.task.run("apk_rename_to_zip");
@@ -71,7 +81,22 @@ module.exports = function(grunt) {
     
   });
   
-  // keytool -list -printcert -jarfile app-debug.apk
+  grunt.registerTask("ascii", function(){
+
+    var message = "███╗   ███╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗████████╗██╗  ██╗██╗███████╗\n";
+    message += "████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ██║╚══██╔══╝██║  ██║██║██╔════╝\n";
+    message += "██╔████╔██║██║   ██║██████╔╝██████╔╝███████║   ██║   ███████║██║███████╗\n";
+    message += "██║╚██╔╝██║██║   ██║██╔══██╗██╔═══╝ ██╔══██║   ██║   ██╔══██║██║╚════██║\n";
+    message += "██║ ╚═╝ ██║╚██████╔╝██║  ██║██║     ██║  ██║   ██║   ██║  ██║██║███████║\n";
+    message += "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝\n";
+    
+    var show = chalk.red(message);
+    
+    grunt.log.writeln(show);
+
+    
+  });
+
   grunt.registerTask("apk_info", function(){
 
     var message = chalk.yellow.bold.underline("Displaying Current APK Information.");
