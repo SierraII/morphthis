@@ -1,7 +1,9 @@
 var chalk = require("chalk");
-module.exports = function(grunt) {
 
-  // Project configuration.
+module.exports = function(grunt){
+
+  
+
   grunt.initConfig({
 
     pkg: grunt.file.readJSON("package.json"),
@@ -9,7 +11,7 @@ module.exports = function(grunt) {
 
     rename: {
         apk: {
-            src: "apk/app.apk",
+            src: "<%= secret.apk_path %>",
             dest: "apk/build/apk_zipped.zip"
         },
         meta_removed: {
@@ -22,7 +24,6 @@ module.exports = function(grunt) {
         apk_origunal_info: "keytool -list -printcert -jarfile <%= secret.apk_path %>",
         apk_new_signed_info: "keytool -list -printcert -jarfile apk/build/app-unsigned.apk",
         zip_align: "<%= secret.zip_align_path %> -v 4 apk/build/app-unsigned.apk apk/build/app-signed.apk",
-        completes: "say -voice ",
         apk_sign: "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass <%= secret.keystore_password %> -keystore <%= secret.keystore_path %> apk/build/app-unsigned.apk 1"
     },
 
@@ -33,41 +34,75 @@ module.exports = function(grunt) {
             ],
         },
     },
-    
+
     unzip: {
         "apk/build/apk_unzipped": "apk/build/apk_zipped.zip"
     },
-    
+
     clean: {
-        meta_inf: ["apk/build/apk_unzipped/META-INF"]
+        meta_inf: ["apk/build/apk_unzipped/META-INF"],
+        apk_unzipped_folder: ["apk/build/apk_unzipped/"],
+        apk_zipped_file: ["apk/build/apk_zipped.zip"],
+        apk_folder: ["apk/"],
+        
     },
-    
+
     compress: {
         meta_removed: {
             options: {
-                archive: 'apk/build/meta_removed.zip',
-                mode: 'zip'
+                archive: "apk/build/meta_removed.zip",
+                mode: "zip"
             },
             files: [
-                {expand: true, cwd: 'apk/build/apk_unzipped', src: '**' }
+                {expand: true, cwd: "apk/build/apk_unzipped", src: "**" }
             ]
         }
-    }
+    },
+
+    prompt: {
+        target: {
+            options: {
+                questions: [
+                  {
+                      config: "open_prompt.config",
+                      type: "list",
+                      message: "Select Task To Run",
+                      default: "Sign APK",
+                      choices: ["Sign APK","Clean Build"]
+                  }
+                ]
+            }
+        },
+    },
 
   });
 
-
-
-
-  
-  
-  
-  
-  
-  // Default task(s).
   grunt.registerTask("default", function(){
-    
+
     grunt.task.run("ascii");
+    grunt.task.run("prompt");
+    grunt.task.run("post_prompt");
+
+  });
+  
+  grunt.registerTask("post_prompt", function(){
+
+    var choice = grunt.config("open_prompt.config");
+
+    if (choice === "Sign APK"){
+      grunt.task.run("sign");
+    }
+
+    if (choice === "Clean Build"){
+      grunt.task.run("clean:apk_folder");
+    }
+
+  });
+  
+  grunt.registerTask("sign", function(){
+
+    require("time-grunt")(grunt);
+
     grunt.task.run("apk_info");
     grunt.task.run("apk_copy");
     grunt.task.run("apk_rename_to_zip");
@@ -78,12 +113,14 @@ module.exports = function(grunt) {
     grunt.task.run("apk_sign");
     grunt.task.run("apk_signed_info");
     grunt.task.run("apk_zip_align");
-    
+    grunt.task.run("clean_build_contents");
+    grunt.task.run("show_done");
+
   });
-  
+
   grunt.registerTask("ascii", function(){
 
-    var message = "███╗   ███╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗████████╗██╗  ██╗██╗███████╗\n";
+    var message = "\n███╗   ███╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗████████╗██╗  ██╗██╗███████╗\n";
     message += "████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ██║╚══██╔══╝██║  ██║██║██╔════╝\n";
     message += "██╔████╔██║██║   ██║██████╔╝██████╔╝███████║   ██║   ███████║██║███████╗\n";
     message += "██║╚██╔╝██║██║   ██║██╔══██╗██╔═══╝ ██╔══██║   ██║   ██╔══██║██║╚════██║\n";
@@ -91,10 +128,9 @@ module.exports = function(grunt) {
     message += "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝\n";
     
     var show = chalk.red(message);
-    
+
     grunt.log.writeln(show);
 
-    
   });
 
   grunt.registerTask("apk_info", function(){
@@ -187,11 +223,34 @@ module.exports = function(grunt) {
 
   });
   
+  grunt.registerTask("clean_build_contents", function(){
+
+    var message = chalk.yellow.bold.underline("Cleaning Build Contents.");
+    grunt.log.writeln(message);
+
+    grunt.task.run("clean:apk_unzipped_folder");
+    grunt.task.run("clean:apk_zipped_file");
+
+  });
+  
+  grunt.registerTask("show_done", function(){
+
+    grunt.log.writeln("");
+
+    var message = chalk.green.bold("Done!");
+    var path = chalk.green.bold("Your Newly Signed APK Can Be Found In apk/build/apk-signed.apk");
+
+    grunt.log.ok(message);
+    grunt.log.ok(path);
+
+  });
+  
   grunt.loadNpmTasks("grunt-rename");
   grunt.loadNpmTasks("grunt-exec");
   grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks('grunt-zip');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks("grunt-zip");
+  grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks("grunt-contrib-compress");
+  grunt.loadNpmTasks("grunt-prompt");
 
 };
