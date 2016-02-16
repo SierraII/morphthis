@@ -2,3 +2,4 @@ node_modules/
 apk/
 keystore/
 secret.json
+app-release.apk
