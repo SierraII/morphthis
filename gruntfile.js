@@ -91,7 +91,7 @@ module.exports = function(grunt){
                       type: "list",
                       message: "Select Task To Run",
                       default: "Sign APK",
-                      choices: ["Sign APK","Clean Build"]
+                      choices: ["Sign APK","Clean Build", "APK Info", "Keystore Info"]
                   }
                 ]
             }
@@ -121,13 +121,32 @@ module.exports = function(grunt){
       var choice = grunt.config("open_prompt.config");
 
       if (choice === "Sign APK"){
-        grunt.task.run("sign");
+
+          // Clean The Build
+          grunt.task.run("clean:apk_folder");
+          grunt.task.run("default");
+
+          grunt.task.run("sign");
+
       }
 
       if (choice === "Clean Build"){
 
-        grunt.task.run("clean:apk_folder");
-        grunt.task.run("default");
+          grunt.task.run("clean:apk_folder");
+          grunt.task.run("default");
+
+      }
+      
+      if (choice === "APK Info"){
+
+          grunt.task.run("apk_info");
+          grunt.task.run("default");
+      }
+      
+      if (choice === "Keystore Info"){
+
+          grunt.task.run("keystore_info");
+          grunt.task.run("default");
 
       }
 
@@ -162,6 +181,7 @@ module.exports = function(grunt){
       grunt.task.run("apk_zip_align");
       grunt.task.run("clean_build_contents");
       grunt.task.run("show_done");
+      grunt.task.run("open_location");
 
   });
 
@@ -175,7 +195,7 @@ module.exports = function(grunt){
       message += "██║ ╚═╝ ██║╚██████╔╝██║  ██║██║     ██║  ██║   ██║   ██║  ██║██║███████║\n";
       message += "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝\n";
       
-      var show = chalk.red(message);
+      var show = chalk.yellow.bold(message);
 
       grunt.log.writeln(show);
 
@@ -304,6 +324,19 @@ module.exports = function(grunt){
 
   // display a message indicating the process if finished
   grunt.registerTask("show_done", function(){
+
+      grunt.log.writeln("");
+
+      var message = chalk.green.bold("Done!");
+      var path = chalk.green.bold("Your Newly Signed APK Can Be Found In apk/build/apk-signed.apk");
+
+      grunt.log.ok(message);
+      grunt.log.ok(path);
+
+  });
+  
+  // open the location of the APK
+  grunt.registerTask("open_location", function(){
 
       grunt.log.writeln("");
 
