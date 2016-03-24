@@ -91,12 +91,21 @@ module.exports = function(grunt){
                       type: "list",
                       message: "Select Task To Run",
                       default: "Sign APK",
-                      choices: ["Sign APK","Clean Build", "APK Info", "Keystore Info"]
+                      choices: ["Sign APK","Clean Build", "Configuration", "APK Info", "Keystore Info"]
                   }
                 ]
             }
         },
     },
+    
+    open: {
+        apk:{
+            path: "./apk/build/"
+        },
+        config:{
+            path: "secret.json"
+        }
+    }
 
   });
 
@@ -124,8 +133,6 @@ module.exports = function(grunt){
 
           // Clean The Build
           grunt.task.run("clean:apk_folder");
-          grunt.task.run("default");
-
           grunt.task.run("sign");
 
       }
@@ -147,6 +154,12 @@ module.exports = function(grunt){
 
           grunt.task.run("keystore_info");
           grunt.task.run("default");
+
+      }
+
+      if (choice === "Configuration"){
+
+          grunt.task.run("open_configuration");
 
       }
 
@@ -180,8 +193,8 @@ module.exports = function(grunt){
       grunt.task.run("apk_signed_info");
       grunt.task.run("apk_zip_align");
       grunt.task.run("clean_build_contents");
-      grunt.task.run("show_done");
       grunt.task.run("open_location");
+      grunt.task.run("show_done");
 
   });
 
@@ -338,13 +351,20 @@ module.exports = function(grunt){
   // open the location of the APK
   grunt.registerTask("open_location", function(){
 
-      grunt.log.writeln("");
+      var message = chalk.yellow.bold.underline("Opening Build Folder.");
+      grunt.log.writeln(message);
 
-      var message = chalk.green.bold("Done!");
-      var path = chalk.green.bold("Your Newly Signed APK Can Be Found In apk/build/apk-signed.apk");
+      grunt.task.run("open:apk");
 
-      grunt.log.ok(message);
-      grunt.log.ok(path);
+  });
+  
+  // open the location of the APK
+  grunt.registerTask("open_configuration", function(){
+
+      var message = chalk.yellow.bold.underline("Opening Secret Configuration.");
+      grunt.log.writeln(message);
+
+      grunt.task.run("open:config");
 
   });
 
@@ -362,5 +382,6 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-compress");
   grunt.loadNpmTasks("grunt-prompt");
+  grunt.loadNpmTasks("grunt-open");
 
 };
