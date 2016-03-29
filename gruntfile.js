@@ -193,8 +193,8 @@ module.exports = function(grunt){
       grunt.task.run("apk_signed_info");
       grunt.task.run("apk_zip_align");
       grunt.task.run("clean_build_contents");
-      grunt.task.run("open_location");
       grunt.task.run("show_done");
+      grunt.task.run("display_image");
 
   });
 
@@ -348,6 +348,28 @@ module.exports = function(grunt){
       grunt.log.ok(path);
 
   });
+
+  // display an image to the user
+  grunt.registerTask("display_image", function(){
+
+      var done = this.async();
+      var pictureTube = require("picture-tube");
+      var tube = pictureTube();
+      var fs = require("fs");
+
+      tube.pipe(process.stdout);
+      fs.createReadStream("config/logo.png").pipe(tube);
+      
+      done(grunt.task.run("post_process"));
+
+  });
+  
+  // all tasks after that needs to happen after the dispay_image task goes within this wrapper
+  grunt.registerTask("post_process", function(){
+
+      grunt.task.run("open_location");
+
+  });
   
   // open the location of the APK
   grunt.registerTask("open_location", function(){
@@ -359,7 +381,7 @@ module.exports = function(grunt){
 
   });
   
-  // open the location of the APK
+  // open the location of the config
   grunt.registerTask("open_configuration", function(){
 
       var message = chalk.yellow.bold.underline("Opening Secret Configuration.");
