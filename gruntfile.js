@@ -111,26 +111,11 @@ module.exports = function(grunt){
   /* -------------------------------------------------------------------- */
   /*
 
-      Load Tasks
+      Load Tasks And NPM Modules
 
   */
   /* -------------------------------------------------------------------- */
   grunt.loadTasks("tasks");
-
-  /* -------------------------------------------------------------------- */
-  /*
-
-      NPM Load Tasks
-
-  */
-  /* -------------------------------------------------------------------- */
-  grunt.loadNpmTasks("grunt-rename");
-  grunt.loadNpmTasks("grunt-exec");
-  grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks("grunt-zip");
-  grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-contrib-compress");
-  grunt.loadNpmTasks("grunt-prompt");
-  grunt.loadNpmTasks("grunt-open");
+  require('load-grunt-tasks')(grunt);
 
 };
