@@ -23,7 +23,7 @@ module.exports = function(grunt){
     // read config files
     pkg: grunt.file.readJSON("package.json"),
     secret: grunt.file.readJSON("secret.json"),
-    
+
     // rename files 
     rename: {
         apk: {
@@ -42,7 +42,8 @@ module.exports = function(grunt){
         keystore_info: "keytool -list -keystore <%= secret.keystore_path %> -storepass <%= secret.keystore_password %> -alias <%= secret.alias_name %>",
         apk_new_signed_info: "keytool -list -printcert -jarfile apk/build/app-unsigned.apk",
         zip_align: "<%= secret.zip_align_path %> -v 4 apk/build/app-unsigned.apk apk/build/app-signed.apk",
-        apk_sign: "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass <%= secret.keystore_password %> -keystore <%= secret.keystore_path %> apk/build/app-unsigned.apk <%= secret.alias_name %>"
+        apk_sign: "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass <%= secret.keystore_password %> -keystore <%= secret.keystore_path %> apk/build/app-unsigned.apk <%= secret.alias_name %>",
+        npm_update: "npm update"
     },
 
     // copy files
@@ -91,7 +92,7 @@ module.exports = function(grunt){
                       type: "list",
                       message: "Select Task To Run",
                       default: "Sign APK",
-                      choices: ["Sign APK","Clean Build", "Configuration", "APK Info", "Keystore Info"]
+                      choices: ["Sign APK","Clean Build", "Update Packages", "Configuration", "APK Info", "Keystore Info"]
                   }
                 ]
             }
@@ -140,6 +141,13 @@ module.exports = function(grunt){
       if (choice === "Clean Build"){
 
           grunt.task.run("clean:apk_folder");
+          grunt.task.run("default");
+
+      }
+
+      if (choice === "Update Packages"){
+
+          grunt.task.run("exec:npm_update");
           grunt.task.run("default");
 
       }
