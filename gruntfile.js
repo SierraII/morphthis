@@ -371,14 +371,14 @@ module.exports = function(grunt){
       done(grunt.task.run("post_process"));
 
   });
-  
+
   // all tasks after that needs to happen after the dispay_image task goes within this wrapper
   grunt.registerTask("post_process", function(){
 
       grunt.task.run("open_location");
 
   });
-  
+
   // open the location of the APK
   grunt.registerTask("open_location", function(){
 
@@ -388,7 +388,7 @@ module.exports = function(grunt){
       grunt.task.run("open:apk");
 
   });
-  
+
   // open the location of the config
   grunt.registerTask("open_configuration", function(){
 
