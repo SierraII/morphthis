@@ -20,7 +20,7 @@ module.exports = function(grunt){
         message += "██║ ╚═╝ ██║╚██████╔╝██║  ██║██║     ██║  ██║   ██║   ██║  ██║██║███████║\n";
         message += "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝\n";
         message += "                                                              - SierraII\n";
-        
+
         var show = chalk.green.bold(message);
 
         grunt.log.writeln(show);
@@ -37,7 +37,7 @@ module.exports = function(grunt){
 
         tube.pipe(process.stdout);
         fs.createReadStream("config/logo.png").pipe(tube);
-        
+
         done(grunt.task.run("post_process"));
 
     });

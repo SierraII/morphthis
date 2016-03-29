@@ -67,7 +67,7 @@ module.exports = function(grunt){
                     mode: "zip"
                 },
                 files: [
-                    {expand: true, cwd: "apk/build/apk_unzipped", src: "**" }
+                    {expand: true, cwd: "apk/build/apk_unzipped", src: "**"}
                 ]
             }
         },
@@ -82,7 +82,7 @@ module.exports = function(grunt){
                           type: "list",
                           message: "Select Task To Run",
                           default: "Sign APK",
-                          choices: ["Sign APK","Clean Build", "Update Packages", "Configuration", "APK Info", "Keystore Info"]
+                          choices: ["Sign APK", "Clean Build", "Update Packages", "Configuration", "APK Info", "Keystore Info"]
                       }
                     ]
                 }
@@ -91,10 +91,10 @@ module.exports = function(grunt){
 
         // open files and folders
         open: {
-            apk:{
+            apk: {
                 path: "./apk/build/"
             },
-            config:{
+            config: {
                 path: "secret.json"
             }
         }

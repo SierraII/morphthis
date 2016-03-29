@@ -36,7 +36,7 @@ module.exports = function(grunt){
             grunt.task.run("default");
 
         }
-        
+
         if (choice === "APK Info"){
 
             grunt.task.run("apk_info");

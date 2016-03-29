@@ -17,7 +17,7 @@ module.exports = function(grunt){
         grunt.log.writeln(message);
 
         grunt.task.run("exec:keystore_info");
-      
+
     });
 
 };
