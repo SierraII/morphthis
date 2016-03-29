@@ -207,8 +207,9 @@ module.exports = function(grunt){
       message += "██║╚██╔╝██║██║   ██║██╔══██╗██╔═══╝ ██╔══██║   ██║   ██╔══██║██║╚════██║\n";
       message += "██║ ╚═╝ ██║╚██████╔╝██║  ██║██║     ██║  ██║   ██║   ██║  ██║██║███████║\n";
       message += "╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝\n";
+      message += "                                                              - SierraII\n";
       
-      var show = chalk.yellow.bold(message);
+      var show = chalk.green.bold(message);
 
       grunt.log.writeln(show);
 
