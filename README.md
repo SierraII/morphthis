@@ -2,9 +2,9 @@ morphthis - Android APK Resigner
 ======
 
 <p align="center">
-    <img style="width:100px" src="https://github.com/SierraII/morphthis/blob/master/config/images/android.png?raw=true" alt=""/>
+    <img width = "100" src="https://github.com/SierraII/morphthis/blob/master/config/images/android.png?raw=true" alt=""/>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/nodejs.jpg?raw=true" alt=""/>
-    <img style="width:100px" src="https://github.com/SierraII/morphthis/blob/master/config/images/grunt.jpg?raw=true" alt=""/>
+    <img width = "110" src="https://github.com/SierraII/morphthis/blob/master/config/images/grunt.jpg?raw=true" alt=""/>
 </p>
 
 An automated script that can resign Android APK files on the fly, whether that APK file has already been signed or not.  
