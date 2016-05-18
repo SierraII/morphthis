@@ -30,13 +30,6 @@ module.exports = function(grunt){
 
         }
 
-        if (choice === "Update Packages"){
-
-            grunt.task.run("exec:npm_update");
-            grunt.task.run("default");
-
-        }
-
         if (choice === "APK Info"){
 
             grunt.task.run("apk_info");

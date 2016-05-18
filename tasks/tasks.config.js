@@ -82,7 +82,7 @@ module.exports = function(grunt){
                           type: "list",
                           message: "Select Task To Run",
                           default: "Sign APK",
-                          choices: ["Sign APK", "Clean Build", "Update Packages", "Configuration", "APK Info", "Keystore Info"]
+                          choices: ["Sign APK", "Clean Build", "Configuration", "APK Info", "Keystore Info"]
                       }
                     ]
                 }
