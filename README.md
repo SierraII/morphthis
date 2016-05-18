@@ -2,7 +2,7 @@ morphthis - Android APK Resigner
 ======
 
 <p align="center">
-    <img src="https://github.com/SierraII/morphthis/blob/master/config/images/grunt.jpg?raw=true" alt=""/>
+    <img src="https://github.com/SierraII/morphthis/blob/master/config/images/grunt.png?raw=true" alt=""/>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/nodejs.jpg?raw=true" alt=""/>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/android.jpg?raw=true" alt=""/>
 </p>
