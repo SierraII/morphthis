@@ -17,7 +17,7 @@ module.exports = function(grunt){
         // rename files
         rename: {
             apk: {
-                src: "<%= secret.apk_path %>",
+                src: "<%= secret.apk_path %>/<%= secret.apk_name %>",
                 dest: "apk/build/apk_zipped.zip"
             },
             meta_removed: {
@@ -28,7 +28,7 @@ module.exports = function(grunt){
 
         // execute shell commands
         exec: {
-            apk_origunal_info: "keytool -list -printcert -jarfile <%= secret.apk_path %>",
+            apk_origunal_info: "keytool -list -printcert -jarfile <%= secret.apk_path %>/<%= secret.apk_name %>",
             keystore_info: "keytool -list -keystore <%= secret.keystore_path %> -storepass <%= secret.keystore_password %> -alias <%= secret.alias_name %>",
             apk_new_signed_info: "keytool -list -printcert -jarfile apk/build/app-unsigned.apk",
             zip_align: "<%= secret.zip_align_path %> -v 4 apk/build/app-unsigned.apk apk/build/app-signed.apk",
@@ -40,7 +40,12 @@ module.exports = function(grunt){
         copy: {
             apk: {
                 files: [
-                  {expand: true, src: ["<%= secret.apk_path %>"], dest: "apk/backup", filter: "isFile"},
+                  {expand: true, cwd: "<%= secret.apk_path %>" , src: "<%= secret.apk_name %>", dest: "apk/backup", filter: "isFile"},
+                ],
+            },
+            replace_apk: {
+                files: [
+                  {expand: true, cwd: "apk/backup" , src: "<%= secret.apk_name %>", dest: "<%= secret.apk_path %>", filter: "isFile"},
                 ],
             },
         },

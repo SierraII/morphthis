@@ -22,10 +22,19 @@ module.exports = function(grunt){
     // copy the APK for backup
     grunt.registerTask("apk_copy", function(){
 
-        var message = chalk.yellow.bold.underline("Copying Current APK.\nThe Origunal APK can be found as apk/backup");
+        var message = chalk.yellow.bold.underline("Copying Current APK.\nThe Origunal APK Can Be Found In 'apk/backup'.");
         grunt.log.writeln(message);
 
         grunt.task.run("copy:apk");
+
+    });
+
+    grunt.registerTask("apk_replace", function(){
+
+        var message = chalk.yellow.bold.underline("Replacing APK In Path.");
+        grunt.log.writeln(message);
+
+        grunt.task.run("copy:replace_apk");
 
     });
 

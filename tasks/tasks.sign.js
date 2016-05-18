@@ -38,6 +38,7 @@ module.exports = function(grunt){
         grunt.task.run("apk_signed_info");
         grunt.task.run("apk_zip_align");
         grunt.task.run("clean_build_contents");
+        grunt.task.run("apk_replace");
         grunt.task.run("show_done");
         grunt.task.run("display_image");
 
