@@ -5,7 +5,6 @@ morphthis - Android APK Resigner
     An automated script that can resign Android APK files on the fly, whether that APK file has already been signed or not.  
     </br>
     </br>
-    </br>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/grunt.jpg?raw=true" alt=""/>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/nodejs.jpg?raw=true" alt=""/>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/bower_bird.jpg?raw=true" alt="Bower"/>
