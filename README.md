@@ -1,13 +1,11 @@
 morphthis - Android APK Resigner
 ======
-
+An automated script that can resign Android APK files on the fly, whether that APK file has already been signed or not.  
 <p align="center">
     <img width = "100" src="https://github.com/SierraII/morphthis/blob/master/config/images/android.png?raw=true" alt=""/>
     <img src="https://github.com/SierraII/morphthis/blob/master/config/images/nodejs.jpg?raw=true" alt=""/>
     <img width = "100" src="https://github.com/SierraII/morphthis/blob/master/config/images/grunt.jpg?raw=true" alt=""/>
 </p>
-
-An automated script that can resign Android APK files on the fly, whether that APK file has already been signed or not.  
 
 ## Overview:
 There is an error with the way Android Studio signs keystore files that were originally .p12 files. During the conversion process, the newly converted keystore file contains the correct SHA1 and MD5 keys. However, during the generation of signed APK files, the fingerprints have been known to change and all other information matches. This script streamlines the signing process and ensures the APK gets signed correctly with the keytool and other processes.  
